@@ -41,6 +41,17 @@ startup
     vars.Log = WriteLog;
 
 	settings.Add("enableInGameTimer", false, "Enable the in-game timer");
+
+	settings.Add("chapterSplits", false, "Chapter Splits");
+	settings.Add("Brave Knights -> Rush Hour", false, "Split at the start of Neon Revenge", "chapterSplits");
+	settings.Add("Head of the Crime Syndicate -> The Underlands", false, "Split at the start of Hopes of Spring", "chapterSplits");
+	settings.Add("The Ice King -> The Dropship", false, "Split at the start of Final Dawn", "chapterSplits");
+	settings.Add("System Fail Safe Mode -> A Serpentine Path", false, "Split at the start of Rise of the Dragon Realm", "chapterSplits");
+	settings.Add("Megalith's Wrath -> Prison Ship", false, "Split at the start of Isolation", "chapterSplits");
+	settings.Add("The Prisoner -> An Ominous Welcome", false, "Split at the start of The Hollow", "chapterSplits");
+	settings.Add("The Hydra -> Split Up", false, "Split at the start of Split", "chapterSplits");
+	settings.Add("SEQ_Meltdown_Battle_Phase3_ScreenPush -> None", false, "Split when defeating Rader", "chapterSplits");
+
 }
 
 init
@@ -237,4 +248,17 @@ gameTime
 	}
 
 	return TimeSpan.FromSeconds(vars.AccumulatedSessionTime + GameSessionTimer.Current);
+}
+
+split
+{
+	if (vars.Data["SequenceName"].Changed)
+	{
+		return settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)];
+	}
+	
+	if (vars.Data["CurrentChapter"].Changed)
+	{
+		return settings[vars.Data["CurrentChapter"].Old + " -> " + vars.Data["CurrentChapter"].Current];
+	}
 }
