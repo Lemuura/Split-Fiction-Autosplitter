@@ -252,13 +252,17 @@ gameTime
 
 split
 {
-	if (vars.Data["SequenceName"].Changed)
+	var shouldSplit = false;
+
+	if (!shouldSplit && vars.Data["SequenceName"].Changed)
 	{
-		return settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)];
+		shouldSplit = settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)];
 	}
 	
-	if (vars.Data["CurrentChapter"].Changed)
+	if (!shouldSplit && vars.Data["CurrentChapter"].Changed)
 	{
-		return settings[vars.Data["CurrentChapter"].Old + " -> " + vars.Data["CurrentChapter"].Current];
+		shouldSplit = settings[vars.Data["CurrentChapter"].Old + " -> " + vars.Data["CurrentChapter"].Current];
 	}
+
+	return shouldSplit;
 }
