@@ -189,7 +189,7 @@ update
 
 	if (settings["enableInGameTimer"] && !vars.Data["bDisplayTimer"].Current)
 	{
-		vars.Log("Enabling in-game timer.");
+		//vars.Log("Enabling in-game timer.");
 		IntPtr bDisplayTimerPtr;
 		vars.bDisplayTimerDP.DerefOffsets(game, out bDisplayTimerPtr);
 		game.WriteValue<bool>(bDisplayTimerPtr, true); 
