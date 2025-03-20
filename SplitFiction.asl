@@ -57,7 +57,7 @@ startup
 
 	
 	settings.Add("raderPublishing", false, "Rader Publishing", "subchapterSplits");
-	settings.Add("Village_BP", false, "Start of Brave Knights", "raderPublishing");
+	settings.Add("Village_BP##Intro", false, "Start of Brave Knights", "raderPublishing");
 
 	settings.Add("neonRevenge", false, "Neon Revenge", "subchapterSplits");
 	settings.Add("Skyline_DaClub_BP##DaClub Finding Sandfish", false, "Play Me Techno", "neonRevenge");
