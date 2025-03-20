@@ -43,14 +43,124 @@ startup
 	settings.Add("enableInGameTimer", false, "Enable the in-game timer");
 
 	settings.Add("chapterSplits", false, "Chapter Splits");
-	settings.Add("Brave Knights -> Rush Hour", false, "Split at the start of Neon Revenge", "chapterSplits");
-	settings.Add("Head of the Crime Syndicate -> The Underlands", false, "Split at the start of Hopes of Spring", "chapterSplits");
-	settings.Add("The Ice King -> The Dropship", false, "Split at the start of Final Dawn", "chapterSplits");
-	settings.Add("System Fail Safe Mode -> A Serpentine Path", false, "Split at the start of Rise of the Dragon Realm", "chapterSplits");
-	settings.Add("Megalith's Wrath -> Prison Ship", false, "Split at the start of Isolation", "chapterSplits");
-	settings.Add("The Prisoner -> An Ominous Welcome", false, "Split at the start of The Hollow", "chapterSplits");
-	settings.Add("The Hydra -> Split Up", false, "Split at the start of Split", "chapterSplits");
-	settings.Add("SEQ_Meltdown_Battle_Phase3_ScreenPush -> None", false, "Split when defeating Rader", "chapterSplits");
+	settings.Add("subchapterSplits", false, "Subchapter Splits");
+	settings.Add("sideStories", false, "Side Stories");
+
+	settings.Add("Skyline_Highway_Tutorial_BP##Tutorial", false, "Neon Revenge", "chapterSplits"); 
+	settings.Add("Tundra_Crack_Swamp_BP##Swamp_Caves", false, "Hopes of Spring", "chapterSplits"); 
+	settings.Add("Island_Entrance_BP##Skydive", false, "Final Dawn", "chapterSplits");
+	settings.Add("Summit_EggPath_BP##Entrance", false, "Rise of the Dragon Realm", "chapterSplits");
+	settings.Add("Prison_Intro_BP##Outside_LevelStart", false, "Isolation", "chapterSplits");
+	settings.Add("Sanctuary_Upper_Tutorial_BP##Sanctuary Intro", false, "The Hollow", "chapterSplits");
+	settings.Add("Meltdown_SplitTraversal_BP##Split Traversal Intro", false, "Split", "chapterSplits");
+	settings.Add("SEQ_Meltdown_Battle_Phase3_ScreenPush -> None", false, "Defeating Rader", "chapterSplits");
+
+	
+	settings.Add("raderPublishing", false, "Rader Publishing", "subchapterSplits");
+	settings.Add("Village_BP", false, "Start of Brave Knights", "raderPublishing");
+
+	settings.Add("neonRevenge", false, "Neon Revenge", "subchapterSplits");
+	settings.Add("Skyline_DaClub_BP##DaClub Finding Sandfish", false, "Play Me Techno", "neonRevenge");
+	settings.Add("Skyline_Nightclub_Club_BP##Club Combat Entry", false, "Hello, Mr. Hammer", "neonRevenge");
+	settings.Add("Skyline_Nightclub_Alley_BP##Alley 0 - Start", false, "Streets of Neon", "neonRevenge");
+	settings.Add("Skyline_CarTower_BP##BallBoss_Chase_Intro", false, "Parking Garage", "neonRevenge");
+	settings.Add("Skyline_Chase_Tutorial_BP##Chase_Alley_Start", false, "The Getaway Car", "neonRevenge");
+	settings.Add("Skyline_InnerCity_CarCrash_BP##CarCrash Site", false, "Big City Life", "neonRevenge");
+	settings.Add("Skyline_InnerCity_Limbo_BP##Limbo Intro", false, "Flipped Cityscapes", "neonRevenge");
+	settings.Add("Skyline_GravityBike_Tutorial_BP##Intro", false, "Gravity Bike", "neonRevenge");
+	settings.Add("Skyline_Boss_Tutorial_BP##BikeTutorial 1", false, "Skyscraper Climb", "neonRevenge");
+	settings.Add("Skyline_Boss_V2_BP##Tank Phase 1", false, "Head of the Crime Syndicate", "neonRevenge");
+
+	settings.Add("neonRevengeSS", false, "Neon Revenge", "sideStories");
+	settings.Add("Desert_SandFish_BP##Intro", false, "The Legend of the Sandfish", "neonRevengeSS");
+	settings.Add("PigWorld_BP##Pigsty_Intro", false, "Farmlife", "neonRevengeSS");
+	settings.Add("Summit_Giants_BP##IntroTraversalArea", false, "Mountain Hike", "neonRevengeSS");
+
+
+	settings.Add("hopesOfSpring", false, "Hopes of Spring", "subchapterSplits");
+	settings.Add("Tundra_Crack_Swamp_BP##Swamp_Wetlands", false, "Lord Evergreen", "hopesOfSpring");
+	settings.Add("Tundra_Crack_Evergreen_BP##Evergreen_Inside", false, "Heart of the Forest", "hopesOfSpring");
+	settings.Add("Tundra_Crack_EvergreenSide_BP##SideSectionStart", false, "Mother Earth", "hopesOfSpring");
+	settings.Add("Tundra_Crack_Forest_BP##CreepyForest", false, "Walking Stick of Doom", "hopesOfSpring");
+	settings.Add("Tundra_River_MonkeyRealm_BP##MountainPath", false, "Silly Monkeys", "hopesOfSpring");
+	settings.Add("Tundra_River_MonkeyRealm_BP##MonkeyConga", false, "It Takes Three to Tango", "hopesOfSpring");
+	settings.Add("Tundra_River_IcePalace_BP##IcePalace - Start", false, "Halls of Ice", "hopesOfSpring");
+	settings.Add("Tundra_River_IcePalace_BP##IceKing - Phase01", false, "The Ice King", "hopesOfSpring");
+
+	settings.Add("hopesOfSpringSS", false, "Hopes of Spring", "sideStories");
+	settings.Add("Coast_TwistyTrain_BP##WingsuitIntro", false, "Train Heist", "hopesOfSpringSS");
+	settings.Add("GameShowArena_BP##GameShowArena - Start", false, "Gameshow", "hopesOfSpringSS");
+	settings.Add("SolarFlare_BP##SolarFlare_Intro", false, "Collapsing Star", "hopesOfSpringSS");
+
+
+	settings.Add("finalDawn", false, "Final Dawn", "subchapterSplits");
+	settings.Add("Island_Stormdrain_BP##Start", false, "Infiltration", "finalDawn");
+	settings.Add("Island_Stormdrain_BP##WeaponUpgradeStation", false, "Gun Upgrade", "finalDawn");
+	settings.Add("Island_Stormdrain_BP##SpinningHallway", false, "Toxic Tumblers", "finalDawn");
+	settings.Add("Island_Rift_BP##Hallway", false, "Factory Entrance", "finalDawn");
+	settings.Add("Island_Rift_BP##Cable House", false, "Factory Exterior", "finalDawn");
+	settings.Add("Island_Rift_BP##Walker Arena", false, "Test Chamber", "finalDawn");
+	settings.Add("Island_Tower_Sidescroller_BP##Sidescroller_Intro", false, "Run and Gun", "finalDawn");
+	settings.Add("Island_Tower_Sidescroller_BossFight_BP##Overseer_Entry", false, "The Overseer", "finalDawn");
+	settings.Add("Island_Tower_Sidescroller_Jetpack_BP##Jetpack_Tutorial", false, "Soaring Desperados", "finalDawn");
+	settings.Add("Island_Escape_BP##Inner Tower", false, "The Escape", "finalDawn");
+	settings.Add("RedSpace_BP##BeforeRedspace", false, "System Fail Safe Mode", "finalDawn");
+
+	settings.Add("finalDawnSS", false, "Final Dawn", "sideStories");
+	settings.Add("KiteTown_BP##Intro", false, "Kites", "finalDawnSS");
+	settings.Add("MoonMarket_BP##Intro", false, "Moon Market", "finalDawnSS");
+	settings.Add("Sketchbook_BP##Intro", false, "Notebook", "finalDawnSS");
+
+
+	settings.Add("dragonRealm", false, "Rise of the Dragon Realm", "subchapterSplits");
+	settings.Add("Summit_WaterTempleInner_Raft_BP##SlowRaftStart", false, "Water Temple", "dragonRealm");
+	settings.Add("Summit_CraftApproach_BP##Water Volcano", false, "Dragon Riders Unite", "dragonRealm");
+	settings.Add("Summit_CraftApproach_RubyKnight_BP##Ruby Knight Intro", false, "The Dragon Slayer", "dragonRealm");
+	settings.Add("Summit_CraftTemple_BP##CraftTemple_Start", false, "Craft Temple", "dragonRealm");
+	settings.Add("Summit_CraftTemple_BP##CraftTemple_DarkCaveEntrance", false, "Dragon Souls", "dragonRealm");
+	settings.Add("Summit_TreasureTemple_BP##Gauntlet", false, "Treasure Temple", "dragonRealm");
+	settings.Add("Summit_TreasureTemple_BP##TopDown", false, "Royal Palace", "dragonRealm");
+	settings.Add("Summit_TreasureTemple_BP##Decimator", false, "Treasure Traitor", "dragonRealm");
+	settings.Add("Summit_StormSiegeIntro_BP##Intro_Tutorial", false, "Might of Dragons", "dragonRealm");
+	settings.Add("Summit_StormSiegeChase_BP##Intro", false, "Into the Storm", "dragonRealm");
+	settings.Add("Summit_StormSiegeFinale_BP##Summit_StormSiegeFinale_FallingDebris", false, "Megalith's Wrath", "dragonRealm");
+
+	settings.Add("dragonRealmSS", false, "Rise of the Dragon Realm", "sideStories");
+	settings.Add("Battlefield_BP##Battlefield_Intro", false, "Slopes of War", "dragonRealmSS");
+	settings.Add("SpaceWalk_BP##SpaceWalk_Indoor", false, "Space Escape", "dragonRealmSS");
+	settings.Add("DentistNightmare_BP##Intro", false, "Birthday Cake", "dragonRealmSS");
+
+
+	settings.Add("isolation", false, "Isolation", "subchapterSplits");
+	settings.Add("Prison_Drones_Maintenance_BP##Drones_LevelStart", false, "Handy Drones", "isolation");
+	settings.Add("Prison_Drones_InBetween_01_BP##InBetween_Slide", false, "Down the Rabbit Hole", "isolation");
+	settings.Add("Prison_Drones_Cooling_BP##Cooling_Start", false, "Hydration Facility", "isolation");
+	settings.Add("Prison_Drones_Stealth_Outdoor_BP##Stealth_Intro", false, "Prison Courtyard", "isolation");
+	settings.Add("Prison_Drones_Pinball_BP##Pinball_Start", false, "Pinball Lock", "isolation");
+	settings.Add("Prison_Arena_BP##Intro", false, "Execution Arena", "isolation");
+	settings.Add("Prison_GarbageRoom_BP##GarbageRoom_Slide", false, "Waste Depot", "isolation");
+	settings.Add("Prison_TrashCompactor_BP##TrashCompactor_Top", false, "Cell Blocks", "isolation");
+	settings.Add("Prison_MaxSecurity_BP##MaxSecurity_Intro", false, "Maximum Security", "isolation");
+	settings.Add("Prison_Boss_BP##Intro", false, "The Prisoner", "isolation");
+
+	
+	settings.Add("hollow", false, "The Hollow", "subchapterSplits");
+	settings.Add("Sanctuary_Upper_BP##Upper WatchTower", false, "Mosaic of Memories", "hollow");
+	settings.Add("Sanctuary_DiscSlide_BP##DiscSlide_Start", false, "Ghost Town", "hollow");
+	settings.Add("Sanctuary_Below_CrackApproach_BP##CrackApproach_DrawBridge", false, "Light in the Dark", "hollow");
+	settings.Add("Sanctuary_Centipede_Tutorial_BP##Centipede_StartRoom", false, "Spiritual Guides", "hollow");
+	settings.Add("Sanctuary_Boss_Medallion_BP##Hydra Reveal Intro", false, "The Hydra", "hollow");
+
+	
+	settings.Add("split", false, "Split", "subchapterSplits");
+	settings.Add("Meltdown_SplitTraversal_BP##Split Traversal Bridge Entrance", false, "A Warm Greeting", "split");
+	settings.Add("Meltdown_BossBattleFirstPhase_BP##Boss phase Start", false, "Face-to-Face", "split");
+	settings.Add("Meltdown_SoftSplit_BP##Soft Split Start", false, "Worlds Apart", "split");
+	settings.Add("Meltdown_SplitBonanza_BP##Split Bonanza Start", false, "Cross Section", "split");
+	settings.Add("Meltdown_BossBattleSecondPhase_BP##BossBattlePhase Lava", false, "Fight a God", "split");
+	settings.Add("Meltdown_ScreenWalk_BP##Meltdown ScreenWalk Intro", false, "A New Perspective", "split");
+	settings.Add("Meltdown_WorldSpin_Fullscreen_BP##WorldSpin Cutscene Intro", false, "Outside the Box", "split");
+	settings.Add("Meltdown_BossBattleThirdPhase_BP##BossBattlePhaseThree First Phase", false, "Final Showdown", "split");
 
 }
 
@@ -93,8 +203,8 @@ init
 					new MemoryWatcher<bool>(vars.bDisplayTimerDP) { Name = "bDisplayTimer"},
 					new MemoryWatcher<double>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x40)) { Name = "GameSessionTimer"},
 					new MemoryWatcher<bool>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x58)) { Name = "bGameIsLoading"},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter"},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"},
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter"}, 					// This string is localized
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"}, // Going to use this one instead
 					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
 				};
 
@@ -179,6 +289,8 @@ init
 	};
 	vars.GetObjectNameFromFName = GetObjectNameFromFName;
 	vars.FNameToString = FNameToString;
+	current.InLevelShort = "";
+	current.ProgressPoint = "";
 }
 
 update
@@ -189,7 +301,7 @@ update
 
 	if (settings["enableInGameTimer"] && !vars.Data["bDisplayTimer"].Current)
 	{
-		//vars.Log("Enabling in-game timer.");
+		// vars.Log("Enabling in-game timer.");
 		IntPtr bDisplayTimerPtr;
 		vars.bDisplayTimerDP.DerefOffsets(game, out bDisplayTimerPtr);
 		game.WriteValue<bool>(bDisplayTimerPtr, true); 
@@ -209,6 +321,18 @@ update
 	{
 		vars.Log("CurrentChapterRef changed: Old: " + vars.Data["CurrentChapterRef.InLevel"].Old + "##" + vars.Data["CurrentChapterRef.Name"].Old + 
 				" -> New: " + vars.Data["CurrentChapterRef.InLevel"].Current + "##" + vars.Data["CurrentChapterRef.Name"].Current);
+
+		current.InLevelShort = vars.Data["CurrentChapterRef.InLevel"].Current;
+		int lastIndex = current.InLevelShort.LastIndexOf('/');
+		if (lastIndex != -1)
+		{
+			current.InLevelShort = current.InLevelShort.Substring(lastIndex + 1);
+		}
+
+		// Using this format to match SaveData.Split
+		current.ProgressPoint = current.InLevelShort + "##" + vars.Data["CurrentChapterRef.Name"].Current;
+
+		vars.Log("ProgressPoint: " + current.ProgressPoint);
 	}
 
 }
@@ -216,6 +340,8 @@ update
 isLoading
 {
 	return true;
+
+	// return vars.Data["bGameIsLoading"].Current;
 }
 
 start
@@ -252,17 +378,23 @@ gameTime
 
 split
 {
-	var shouldSplit = false;
 
-	if (!shouldSplit && vars.Data["SequenceName"].Changed)
+	if (vars.Data["SequenceName"].Changed && 
+		settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)])
 	{
-		shouldSplit = settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)];
+		return true;
 	}
 	
-	if (!shouldSplit && vars.Data["CurrentChapter"].Changed)
+	if (current.InLevelShort != old.InLevelShort &&
+		settings[current.InLevelShort])
 	{
-		shouldSplit = settings[vars.Data["CurrentChapter"].Old + " -> " + vars.Data["CurrentChapter"].Current];
+		return true;
 	}
 
-	return shouldSplit;
+	if (current.ProgressPoint != old.ProgressPoint &&
+		settings[current.ProgressPoint])
+	{
+		return true;
+	}
+
 }
