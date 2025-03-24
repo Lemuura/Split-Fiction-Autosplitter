@@ -160,7 +160,7 @@ startup
 	settings.Add("Meltdown_BossBattleSecondPhase_BP##BossBattlePhase Lava", false, "Fight a God", "split");
 	settings.Add("Meltdown_ScreenWalk_BP##Meltdown ScreenWalk Intro", false, "A New Perspective", "split");
 	settings.Add("Meltdown_WorldSpin_Fullscreen_BP##WorldSpin Cutscene Intro", false, "Outside the Box", "split");
-	settings.Add("Meltdown_BossBattleThirdPhase_BP##BossBattlePhaseThree First Phase", false, "Final Showdown", "split");
+	settings.Add("Meltdown_BossBattleThirdPhase_BP##BossBattlePhaseThree First Phase ", false, "Final Showdown", "split");
 
 }
 
