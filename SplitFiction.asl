@@ -204,8 +204,11 @@ init
 					new MemoryWatcher<double>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x40)) { Name = "GameSessionTimer"},
 					new MemoryWatcher<bool>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x58)) { Name = "bGameIsLoading"},
 					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter"}, 					// This string is localized
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"}, // Going to use this one instead
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
+					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"}, // Going to use this one instead
+					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel"}, 
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name"},
+				
 				};
 
 				vars.Data.UpdateAll(game);
@@ -317,12 +320,12 @@ update
 		vars.Log("CurrentChapter changed: Old: " + vars.Data["CurrentChapter"].Old + " -> New: " + vars.Data["CurrentChapter"].Current);
 	}
 
-	if (vars.Data["CurrentChapterRef.InLevel"].Changed || vars.Data["CurrentChapterRef.Name"].Changed)
+	if (vars.Data["ProgressPoint.InLevel"].Changed || vars.Data["ProgressPoint.Name"].Changed)
 	{
-		vars.Log("CurrentChapterRef changed: Old: " + vars.Data["CurrentChapterRef.InLevel"].Old + "##" + vars.Data["CurrentChapterRef.Name"].Old + 
-				" -> New: " + vars.Data["CurrentChapterRef.InLevel"].Current + "##" + vars.Data["CurrentChapterRef.Name"].Current);
+		vars.Log("ProgressPoint changed: Old: " + vars.Data["ProgressPoint.InLevel"].Old + "##" + vars.Data["ProgressPoint.Name"].Old + 
+				" -> New: " + vars.Data["ProgressPoint.InLevel"].Current + "##" + vars.Data["ProgressPoint.Name"].Current);
 
-		current.InLevelShort = vars.Data["CurrentChapterRef.InLevel"].Current;
+		current.InLevelShort = vars.Data["ProgressPoint.InLevel"].Current;
 		int lastIndex = current.InLevelShort.LastIndexOf('/');
 		if (lastIndex != -1)
 		{
@@ -330,7 +333,7 @@ update
 		}
 
 		// Using this format to match SaveData.Split
-		current.ProgressPoint = current.InLevelShort + "##" + vars.Data["CurrentChapterRef.Name"].Current;
+		current.ProgressPoint = current.InLevelShort + "##" + vars.Data["ProgressPoint.Name"].Current;
 
 		vars.Log("ProgressPoint: " + current.ProgressPoint);
 	}
