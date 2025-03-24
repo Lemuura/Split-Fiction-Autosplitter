@@ -368,12 +368,12 @@ gameTime
 {
 	var GameSessionTimer = vars.Data["GameSessionTimer"];
 
-	if (GameSessionTimer.Current <= 0.000d && GameSessionTimer.Old > 0.000d)
+	if (GameSessionTimer.Current > GameSessionTimer.Old)
 	{
-		vars.AccumulatedSessionTime += GameSessionTimer.Old;
+		vars.AccumulatedSessionTime += (GameSessionTimer.Current - GameSessionTimer.Old);
 	}
 
-	return TimeSpan.FromSeconds(vars.AccumulatedSessionTime + GameSessionTimer.Current);
+	return TimeSpan.FromSeconds(vars.AccumulatedSessionTime);
 }
 
 split
