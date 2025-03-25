@@ -69,7 +69,7 @@ startup
 	settings.Add("Skyline_InnerCity_Limbo_BP##Limbo Intro", false, "Flipped Cityscapes", "neonRevenge");
 	settings.Add("Skyline_GravityBike_Tutorial_BP##Intro", false, "Gravity Bike", "neonRevenge");
 	settings.Add("Skyline_Boss_Tutorial_BP##BikeTutorial 1", false, "Skyscraper Climb", "neonRevenge");
-	settings.Add("Skyline_Boss_V2_BP##Tank Phase 1", false, "Head of the Crime Syndicate", "neonRevenge");
+	settings.Add("Skyline_Boss_V2_BP##Tank Phase 1 (No intro)", false, "Head of the Crime Syndicate", "neonRevenge");
 
 	settings.Add("neonRevengeSS", false, "Neon Revenge", "sideStories");
 	settings.Add("Desert_SandFish_BP##Intro", false, "The Legend of the Sandfish", "neonRevengeSS");
@@ -84,7 +84,7 @@ startup
 	settings.Add("Tundra_Crack_Forest_BP##CreepyForest", false, "Walking Stick of Doom", "hopesOfSpring");
 	settings.Add("Tundra_River_MonkeyRealm_BP##MountainPath", false, "Silly Monkeys", "hopesOfSpring");
 	settings.Add("Tundra_River_MonkeyRealm_BP##MonkeyConga", false, "It Takes Three to Tango", "hopesOfSpring");
-	settings.Add("Tundra_River_IcePalace_BP##IcePalace - Start", false, "Halls of Ice", "hopesOfSpring");
+	settings.Add("None -> SEQ_Tundra_IcePalace_Outergate_Entering", false, "Halls of Ice", "hopesOfSpring");
 	settings.Add("Tundra_River_IcePalace_BP##IceKing - Phase01", false, "The Ice King", "hopesOfSpring");
 
 	settings.Add("hopesOfSpringSS", false, "Hopes of Spring", "sideStories");
