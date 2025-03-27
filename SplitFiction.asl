@@ -395,22 +395,30 @@ gameTime
 split
 {
 
-	if (vars.Data["SequenceName"].Changed && 
-		settings[vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current)])
+	var ids = new List<string>();
+
+	if (vars.Data["SequenceName"].Changed)
 	{
-		return true;
+		ids.Add(vars.FNameToString(vars.Data["SequenceName"].Old) + " -> " + vars.FNameToString(vars.Data["SequenceName"].Current));
 	}
 	
-	if (current.InLevelShort != old.InLevelShort &&
-		settings[current.InLevelShort])
+	if (current.InLevelShort != old.InLevelShort)
 	{
-		return true;
+		ids.Add(current.InLevelShort);
 	}
 
-	if (current.ProgressPoint != old.ProgressPoint &&
-		settings[current.ProgressPoint])
+	if (current.ProgressPoint != old.ProgressPoint)
 	{
+		ids.Add(current.ProgressPoint);
+	}
+
+	foreach (var id in ids)
+	{
+		if (settings.ContainsKey(id) && settings[id])
+	{
+			vars.Log("Split! " + id);
 		return true;
+		}
 	}
 
 }
