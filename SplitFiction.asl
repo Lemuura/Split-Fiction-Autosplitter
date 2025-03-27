@@ -17,7 +17,7 @@ startup
 			timer.CurrentTimingMethod = TimingMethod.GameTime;
 		}
 	}
-
+	
 	
 	vars.AccumulatedSessionTime = 0d;
 
@@ -216,11 +216,11 @@ init
 					new MemoryWatcher<bool>(vars.bDisplayTimerDP) { Name = "bDisplayTimer"},
 					new MemoryWatcher<double>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x40)) { Name = "GameSessionTimer", Current = 0},
 					new MemoryWatcher<bool>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x58)) { Name = "bGameIsLoading", Current = true},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter", Current = ""}, 					// This string is localized
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter"}, 					// This string is localized
 					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"}, // Going to use this one instead
 					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel", Current = ""}, 
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name", Current = ""},
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel"}, 
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name"},
 				
 				};
 			}
@@ -233,21 +233,6 @@ init
 
 			if (GWorld != IntPtr.Zero && FNamePool != IntPtr.Zero)
 			{
-				vars.Data.UpdateAll(game);
-				vars.Log("SequenceName: " + vars.FNameToString(vars.Data["SequenceName"].Current));
-				vars.Log("CurrentChapter: " + vars.Data["CurrentChapter"].Current);
-				vars.Log("ProgressPoint: " + vars.Data["ProgressPoint.InLevel"].Current + "##" + vars.Data["ProgressPoint.Name"].Current);
-
-				current.InLevelShort = vars.Data["ProgressPoint.InLevel"].Current;
-				int lastIndex = current.InLevelShort.LastIndexOf('/');
-				if (lastIndex != -1)
-				{
-					current.InLevelShort = current.InLevelShort.Substring(lastIndex + 1);
-				}
-
-				current.ProgressPoint = current.InLevelShort + "##" + vars.Data["ProgressPoint.Name"].Current;
-
-				vars.Log("ProgressPoint: " + current.ProgressPoint);
 				break;
 			}
 
@@ -261,7 +246,7 @@ init
 	vars.ScanThread.Start();
 
 	vars.FNamePool = IntPtr.Zero;
-	Func<int, string> FNameToString = (comparisonIndex) =>
+	vars.FNameToString =  (Func<int, string>)((comparisonIndex) =>
 	{
 		if (vars.FNamePool == IntPtr.Zero)
 		{
@@ -294,7 +279,7 @@ init
 		}
 
 		return null;
-	};
+	});
 
 	Func<string, string> GetObjectNameFromObjectPath = (objectPath) =>
 	{
@@ -312,21 +297,62 @@ init
 		return objectPath.Substring(lastDotIndex + 1);
 	};
 
-	Func<int, string> GetObjectNameFromFName = (comparisonIndex) =>
+	vars.GetObjectNameFromFName = (Func<int, string>) ((comparisonIndex) =>
 	{
-		return GetObjectNameFromObjectPath(FNameToString(comparisonIndex));
-	};
-	vars.GetObjectNameFromFName = GetObjectNameFromFName;
-	vars.FNameToString = FNameToString;
-	current.InLevelShort = "";
+		return GetObjectNameFromObjectPath(vars.FNameToString(comparisonIndex));
+	});
+
 	current.ProgressPoint = "";
+	current.InLevelShort = "";
 }
 
 update
 {
     if (vars.ScanThread.IsAlive) return false;
-
 	vars.Data.UpdateAll(game);
+
+	if (vars.Data["SequenceName"].Old != vars.Data["SequenceName"].Current)
+	{
+		vars.Log(String.Format(
+			"SequenceName changed: Old: '{0}' -> New: '{1}'", 
+			vars.FNameToString(vars.Data["SequenceName"].Old), 
+			vars.FNameToString(vars.Data["SequenceName"].Current)
+		));
+	}
+
+	if (vars.Data["CurrentChapter"].Old != vars.Data["CurrentChapter"].Current)
+	{
+		vars.Log(String.Format(
+			"CurrentChapter changed: Old: '{0}' -> New: '{1}'", 
+			vars.Data["CurrentChapter"].Old, 
+			vars.Data["CurrentChapter"].Current
+		));
+	}
+
+	if (vars.Data["ProgressPoint.InLevel"].Old != vars.Data["ProgressPoint.InLevel"].Current || 
+		vars.Data["ProgressPoint.Name"].Old != vars.Data["ProgressPoint.Name"].Current)
+	{
+		vars.Log(String.Format(
+			"ProgressPoint.InLevel changed: Old: '{0}' -> New: '{1}'", 
+			vars.Data["ProgressPoint.InLevel"].Old, 
+			vars.Data["ProgressPoint.InLevel"].Current
+		));
+
+		current.InLevelShort = vars.Data["ProgressPoint.InLevel"].Current;
+		int lastIndex = current.InLevelShort.LastIndexOf('/');
+		if (lastIndex != -1)
+		{
+			current.InLevelShort = current.InLevelShort.Substring(lastIndex + 1);
+		}
+		old.ProgressPoint = current.ProgressPoint;
+		current.ProgressPoint = String.Format("{0}##{1}", current.InLevelShort, vars.Data["ProgressPoint.Name"].Current);
+
+		vars.Log(String.Format(
+			"ProgressPoint changed: Old: '{0}' -> New: '{1}'", 
+			old.ProgressPoint, 
+			current.ProgressPoint
+		));
+	}
 
 	if (settings["enableInGameTimer"] && !vars.Data["bDisplayTimer"].Current)
 	{
@@ -335,35 +361,6 @@ update
 		vars.bDisplayTimerDP.DerefOffsets(game, out bDisplayTimerPtr);
 		game.WriteValue<bool>(bDisplayTimerPtr, true); 
 	}
-
-	if (vars.Data["SequenceName"].Changed)
-	{
-		vars.Log("SequenceName changed: Old: " + vars.FNameToString(vars.Data["SequenceName"].Old) + " -> New: " + vars.FNameToString(vars.Data["SequenceName"].Current));
-	}
-
-	if (vars.Data["CurrentChapter"].Changed)
-	{
-		vars.Log("CurrentChapter changed: Old: " + vars.Data["CurrentChapter"].Old + " -> New: " + vars.Data["CurrentChapter"].Current);
-	}
-
-	if (vars.Data["ProgressPoint.InLevel"].Changed || vars.Data["ProgressPoint.Name"].Changed)
-	{
-		vars.Log("ProgressPoint changed: Old: " + vars.Data["ProgressPoint.InLevel"].Old + "##" + vars.Data["ProgressPoint.Name"].Old + 
-				" -> New: " + vars.Data["ProgressPoint.InLevel"].Current + "##" + vars.Data["ProgressPoint.Name"].Current);
-
-		current.InLevelShort = vars.Data["ProgressPoint.InLevel"].Current;
-		int lastIndex = current.InLevelShort.LastIndexOf('/');
-		if (lastIndex != -1)
-		{
-			current.InLevelShort = current.InLevelShort.Substring(lastIndex + 1);
-		}
-
-		// Using this format to match SaveData.Split
-		current.ProgressPoint = current.InLevelShort + "##" + vars.Data["ProgressPoint.Name"].Current;
-
-		vars.Log("ProgressPoint: " + current.ProgressPoint);
-	}
-
 }
 
 isLoading
