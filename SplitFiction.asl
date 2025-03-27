@@ -132,7 +132,7 @@ startup
 	settings.CurrentDefaultParent = 			"dragonRealm";
 	AddSetting("Water Temple", 					"Summit_WaterTempleInner_Raft_BP##SlowRaftStart");
 	AddSetting("Dragon Riders Unite", 			"Summit_CraftApproach_BP##Water Volcano");
-	AddSetting("The Dragon Slayer", 			"Summit_CraftApproach_RubyKnight_BP##Ruby Knight Intro");
+	AddSetting("The Dragon Slayer", 			"None -> SEQ_Summit_CraftTemple_KnightArena_Intro");
 	AddSetting("Craft Temple", 					"Summit_CraftTemple_BP##CraftTemple_Start");
 	AddSetting("Dragon Souls", 					"Summit_CraftTemple_BP##CraftTemple_DarkCaveEntrance");
 	AddSetting("Treasure Temple", 				"Summit_TreasureTemple_BP##Gauntlet");
@@ -150,7 +150,7 @@ startup
 	settings.CurrentDefaultParent = 			"isolation";
 	AddSetting("Handy Drones", 					"Prison_Drones_Maintenance_BP##Drones_LevelStart");
 	AddSetting("Down the Rabbit Hole", 			"Prison_Drones_InBetween_01_BP##InBetween_Slide");
-	AddSetting("Hydration Facility", 			"Prison_Drones_Cooling_BP##Cooling_Start");
+	AddSetting("Hydration Facility", 			"Prison_Drones_Cooling_BP##Cooling_Start_NoIntro");
 	AddSetting("Prison Courtyard", 				"Prison_Drones_Stealth_Outdoor_BP##Stealth_Intro");
 	AddSetting("Pinball Lock", 					"Prison_Drones_Pinball_BP##Pinball_Start");
 	AddSetting("Execution Arena", 				"Prison_Arena_BP##Intro");
