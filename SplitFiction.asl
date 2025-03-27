@@ -195,23 +195,21 @@ init
 					new StringWatcher(new DeepPointer(GWorld, 0x5C8, 0x0), 255) { Name = "Level"},
 
 					// GWorld.GameInstance.PlayerCharacters[0(Mio)].ActiveLevelSequenceActor.SequencePlayer.Sequence.Name
-					new MemoryWatcher<int>(new DeepPointer(GWorld, 0x1D8, 0x300, 0x0, 0x430, 0x368, 0x2b0, 0x18)) { Name = "SequenceName", FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull},
+					new MemoryWatcher<int>(new DeepPointer(GWorld, 0x1D8, 0x300, 0x0, 0x430, 0x368, 0x2b0, 0x18)) { Name = "SequenceName", FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull, Current = 0},
 
 					// GWorld.GameInstance.SingletonObjects[78(UGlobalMenuSingleton)].Padding
 					// Padding is always FF899701107998FF
 					// new MemoryWatcher<IntPtr>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x30)) { Name = "Padding"},
 					new MemoryWatcher<bool>(vars.bDisplayTimerDP) { Name = "bDisplayTimer"},
-					new MemoryWatcher<double>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x40)) { Name = "GameSessionTimer"},
-					new MemoryWatcher<bool>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x58)) { Name = "bGameIsLoading"},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter"}, 					// This string is localized
+					new MemoryWatcher<double>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x40)) { Name = "GameSessionTimer", Current = 0},
+					new MemoryWatcher<bool>(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x58)) { Name = "bGameIsLoading", Current = true},
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x60, 0x0), 255) { Name = "CurrentChapter", Current = ""}, 					// This string is localized
 					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x0, 0x0), 255) { Name = "CurrentChapterRef.InLevel"}, // Going to use this one instead
 					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel"}, 
-					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name"},
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel", Current = ""}, 
+					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name", Current = ""},
 				
 				};
-
-				vars.Data.UpdateAll(game);
 			}
 
 			if (FNamePool == IntPtr.Zero && (FNamePool = scanner.Scan(FNamePoolTrg)) != IntPtr.Zero)
@@ -222,6 +220,21 @@ init
 
 			if (GWorld != IntPtr.Zero && FNamePool != IntPtr.Zero)
 			{
+				vars.Data.UpdateAll(game);
+				vars.Log("SequenceName: " + vars.FNameToString(vars.Data["SequenceName"].Current));
+				vars.Log("CurrentChapter: " + vars.Data["CurrentChapter"].Current);
+				vars.Log("ProgressPoint: " + vars.Data["ProgressPoint.InLevel"].Current + "##" + vars.Data["ProgressPoint.Name"].Current);
+
+				current.InLevelShort = vars.Data["ProgressPoint.InLevel"].Current;
+				int lastIndex = current.InLevelShort.LastIndexOf('/');
+				if (lastIndex != -1)
+				{
+					current.InLevelShort = current.InLevelShort.Substring(lastIndex + 1);
+				}
+
+				current.ProgressPoint = current.InLevelShort + "##" + vars.Data["ProgressPoint.Name"].Current;
+
+				vars.Log("ProgressPoint: " + current.ProgressPoint);
 				break;
 			}
 
