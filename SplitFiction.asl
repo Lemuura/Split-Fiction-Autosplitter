@@ -93,8 +93,11 @@ startup
 
 	settings.CurrentDefaultParent = 			"neonRevengeSS";
 	AddSetting("The Legend of the Sandfish", 	"Desert_SandFish_BP##Intro");
+	AddSetting("The Legend of the Sandfish Ending", "Skyline_DaClub_BP##DaClub Exiting Sandfish");
 	AddSetting("Farmlife", 						"PigWorld_BP##Pigsty_Intro");
+	AddSetting("Farmlife Ending", 				"Skyline_Nightclub_PigWorld_BP##PigWorld Exit Cutscene");
 	AddSetting("Mountain Hike", 				"Summit_Giants_BP##IntroTraversalArea");
+	AddSetting("Mountain Hike Ending", 			"Skyline_InnerCity_Drones_BP##Giants Exit Cutscene");
 
 	settings.CurrentDefaultParent = 			"hopesOfSpring";
 	AddSetting("Lord Evergreen", 				"Tundra_Crack_Swamp_BP##Swamp_Wetlands");
@@ -107,9 +110,12 @@ startup
 	AddSetting("The Ice King", 					"Tundra_River_IcePalace_BP##IceKing - Phase01");
 
 	settings.CurrentDefaultParent = 			"hopesOfSpringSS";
-	AddSetting("Train Heist", 					"Coast_TwistyTrain_BP##WingsuitIntro");
+	AddSetting("Train Heist", 					"Coast_TwistyTrain_BP##WingsuitIntroNoSEQ");
+	AddSetting("Train Heist Ending",			"None -> SEQ_Tundra_SideGlitch_Coast_Outro");
 	AddSetting("Gameshow", 						"GameShowArena_BP##GameShowArena - Start");
+	AddSetting("Gameshow Ending", 				"None -> SEQ_Tundra_SideGlitch_Gameshow_Outro");
 	AddSetting("Collapsing Star", 				"SolarFlare_BP##SolarFlare_Intro");
+	AddSetting("Collapsing Start Ending", 		"Tundra_River_IcePalace_BP##IcePalace - Completed Solarflare");
 
 	settings.CurrentDefaultParent = 			"finalDawn";
 	AddSetting("Infiltration", 					"Island_Stormdrain_BP##Start");
@@ -126,8 +132,11 @@ startup
 
 	settings.CurrentDefaultParent = 			"finalDawnSS";
 	AddSetting("Kites", 						"KiteTown_BP##Intro");
+	AddSetting("Kites Ending", 					"Island_Stormdrain_BP##SpinningHallway_AfterKitesFinished");
 	AddSetting("Moon Market", 					"MoonMarket_BP##Intro");
+	AddSetting("Moon Market Ending", 			"Island_Rift_BP##Robot Arms After Moon Market Finished");
 	AddSetting("Notebook", 						"Sketchbook_BP##Intro");
+	AddSetting("Notebook Ending",				"Island_Tower_OuterRift_BP##After SketchBook Finished");
 
 	settings.CurrentDefaultParent = 			"dragonRealm";
 	AddSetting("Water Temple", 					"Summit_WaterTempleInner_Raft_BP##SlowRaftStart");
@@ -144,8 +153,11 @@ startup
 
 	settings.CurrentDefaultParent = 			"dragonRealmSS";
 	AddSetting("Slopes of War", 				"Battlefield_BP##Battlefield_Intro");
+	AddSetting("Slopes of War Ending", 			"Summit_WaterTempleInner_BP##Summit_WaterTempleInner_BattlefieldCompleted");
 	AddSetting("Space Escape", 					"SpaceWalk_BP##SpaceWalk_Indoor");
+	AddSetting("Space Escape Ending",			"Summit_CraftTemple_BP##CraftTemple_SpaceWalkCompleted");
 	AddSetting("Birthday Cake", 				"DentistNightmare_BP##Intro");
+	AddSetting("Birthday Cake Ending", 			"Summit_TreasureTemple_BP##DentistCompleted");
 
 	settings.CurrentDefaultParent = 			"isolation";
 	AddSetting("Handy Drones", 					"Prison_Drones_Maintenance_BP##Drones_LevelStart");
