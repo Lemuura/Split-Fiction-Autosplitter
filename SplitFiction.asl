@@ -101,6 +101,7 @@ startup
 
 	settings.CurrentDefaultParent = 			"hopesOfSpring";
 	AddSetting("Lord Evergreen", 				"Tundra_Crack_Swamp_BP##Swamp_Wetlands");
+	AddSetting("Crackbird in Lord Evergreen", 	"Tundra_Crack_Swamp_BP##Swamp_Crackbird");
 	AddSetting("Heart of the Forest", 			"Tundra_Crack_Evergreen_BP##Evergreen_Inside");
 	AddSetting("Mother Earth", 					"Tundra_Crack_EvergreenSide_BP##SideSectionStart");
 	AddSetting("Walking Stick of Doom", 		"Tundra_Crack_Forest_BP##CreepyForest");
@@ -115,7 +116,7 @@ startup
 	AddSetting("Gameshow", 						"GameShowArena_BP##GameShowArena - Start");
 	AddSetting("Gameshow Ending", 				"None -> SEQ_Tundra_SideGlitch_Gameshow_Outro");
 	AddSetting("Collapsing Star", 				"SolarFlare_BP##SolarFlare_Intro");
-	AddSetting("Collapsing Start Ending", 		"Tundra_River_IcePalace_BP##IcePalace - Completed Solarflare");
+	AddSetting("Collapsing Star Ending", 		"Tundra_River_IcePalace_BP##IcePalace - Completed Solarflare");
 
 	settings.CurrentDefaultParent = 			"finalDawn";
 	AddSetting("Infiltration", 					"Island_Stormdrain_BP##Start");
@@ -384,7 +385,9 @@ isLoading
 
 start
 {
-	return vars.Data["GameSessionTimer"].Current > 0.000d && vars.Data["GameSessionTimer"].Old <= 0.000d;
+	return vars.Data["GameSessionTimer"].Old < vars.Data["GameSessionTimer"].Current 
+		&& vars.Data["GameSessionTimer"].Current > 0.000d
+		&& vars.Data["GameSessionTimer"].Current < 1.000d;
 }
 
 exit
