@@ -49,6 +49,7 @@ startup
 	AddSetting("Chapter Splits", 				"chapterSplits");
 	AddSetting("Subchapter Splits", 			"subchapterSplits");
 	AddSetting("Side Stories", 					"sideStories");
+	AddSetting("Misc", 							"misc");
 
 	settings.CurrentDefaultParent = 			"chapterSplits";
 	AddSetting("Neon Revenge", 					"Skyline_Highway_Tutorial_BP##Tutorial");
@@ -188,6 +189,19 @@ startup
 	AddSetting("A New Perspective", 			"Meltdown_ScreenWalk_BP##Meltdown ScreenWalk Intro");
 	AddSetting("Outside the Box", 				"Meltdown_WorldSpin_Fullscreen_BP##WorldSpin Cutscene Intro");
 	AddSetting("Final Showdown", 				"Meltdown_BossBattleThirdPhase_BP##BossBattlePhaseThree First Phase ");
+
+	settings.CurrentDefaultParent = 			"misc";
+	AddSetting("Laser Hell", 					"laserHell");
+
+	settings.CurrentDefaultParent = 			"laserHell";
+	AddSetting("Door 1", 						"laserHellDoor1");
+	AddSetting("Door 2", 						"laserHellDoor2");
+	AddSetting("Door 3", 						"laserHellDoor3");
+	AddSetting("Door 4", 						"laserHellDoor4");
+	AddSetting("Door 5", 						"laserHellDoor5");
+
+	vars.LaserHellDoors = new List<DeepPointer>();
+	vars.LaserHellInit = false;
 }
 
 init
@@ -234,6 +248,7 @@ init
 					//new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x3E0, 0x78, 0x80 + 0x10, 0x0), 255) { Name = "CurrentChapterRef.Name"},
 					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0xF8, 0x0), 255) { Name = "ProgressPoint.InLevel"}, 
 					new StringWatcher(new DeepPointer(GWorld, 0x1D8, 0x298, 0x108, 0x0), 255) { Name = "ProgressPoint.Name"},
+					new MemoryWatcher<int>(new DeepPointer(GWorld, 0x178 + 0x8)) { Name = "LevelsSize", FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull, Current = 0},
 				
 				};
 			}
@@ -246,6 +261,7 @@ init
 
 			if (GWorld != IntPtr.Zero && FNamePool != IntPtr.Zero)
 			{
+				vars.GWorld = GWorld;
 				break;
 			}
 
@@ -317,6 +333,8 @@ init
 
 	current.ProgressPoint = "";
 	current.InLevelShort = "";
+	current.OpenLaserHellDoors = 0;
+	current.FurthestLaserHellDoor = 0;
 }
 
 update
@@ -367,6 +385,42 @@ update
 		));
 	}
 
+	if (settings["laserHell"] && current.InLevelShort == "Prison_MaxSecurity_BP")
+	{
+		if (!vars.LaserHellInit && vars.Data["LevelsSize"].Current != vars.Data["LevelsSize"].Old)
+		{
+			vars.LaserHellDoors.Clear();
+			for (int i = 0; i < vars.Data["LevelsSize"].Current; i++)
+			{
+				var LevelOffset = i * 0x8;
+				var LevelScriptActorNameDP = new DeepPointer(vars.GWorld, 0x178, LevelOffset, 0xF0, 0x18);
+				var LevelScriptActorName = LevelScriptActorNameDP.Deref<int>(game);
+				var Name = vars.FNameToString(LevelScriptActorName);
+				if (Name.Equals("Prison_MaxSecurity_LaserHell_BP_C"))
+				{
+					current.OpenLaserHellDoors = 0;
+					for (int i2 = 0; i2 < 5; i2++)
+					{
+						var DoorOffset = i2 * 0x8;
+						vars.LaserHellDoors.Add(new DeepPointer(vars.GWorld, 0x178, LevelOffset, 0xF0, 0x3A0, DoorOffset, 0x548));
+					}
+					break;
+				}
+				
+			}
+			vars.LaserHellInit = true;
+		}
+		
+		int count = 0;
+		foreach (var doorDP in vars.LaserHellDoors)
+		{
+			var door = doorDP.Deref<bool>(game);
+			if (door)
+				count++;
+		}
+		current.OpenLaserHellDoors = count;
+	}
+
 	if (settings["enableInGameTimer"] && !vars.Data["bDisplayTimer"].Current)
 	{
 		// vars.Log("Enabling in-game timer.");
@@ -398,11 +452,13 @@ exit
 onReset
 {
 	vars.AccumulatedSessionTime = 0;
+	current.FurthestLaserHellDoor = 0;
 }
 
 onStart
 {
 	vars.AccumulatedSessionTime = 0;
+	current.FurthestLaserHellDoor = 0;
 }
 
 gameTime
@@ -435,6 +491,12 @@ split
 	if (current.ProgressPoint != old.ProgressPoint)
 	{
 		ids.Add(current.ProgressPoint);
+	}
+
+	if (current.OpenLaserHellDoors > current.FurthestLaserHellDoor)
+	{
+		ids.Add("laserHellDoor" + current.OpenLaserHellDoors);
+		current.FurthestLaserHellDoor = current.OpenLaserHellDoors;
 	}
 
 	foreach (var id in ids)
